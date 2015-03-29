@@ -12,10 +12,14 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace GoWordDoc
 {
+    
     public partial class ThisDocument
     {
         private void ThisDocument_Startup(object sender, System.EventArgs e)
         {
+            // TODO: Test generation of XML file here.  Currently will not compile need to 
+            // properly structure class called from another file
+            //XMLDocGenerator randomXMLFile = new XMLDocGenerator();
         }
 
         private void ThisDocument_Shutdown(object sender, System.EventArgs e)

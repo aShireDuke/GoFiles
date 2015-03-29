@@ -1,0 +1,52 @@
+Last updated: 20150328, AD
+
+Summary:
+
+This is a very quick list of style guide I intend to use for this C# project.  These conventions are a combo of many different online style guides.
+
+Sources:
+http://www.sourceformat.com/pdf/cs-coding-standard-bellware.pdf
+https://msdn.microsoft.com/en-us/library/xzf533w0%28v=vs.71%29.aspx 
+
+=========================================================		
+Naming Conventions:
+
+- Pascal case (ie BlargAmazingVar) is used for almost all identifiers (ie Class, Event, Method, Namespace, Property)
+- Camel case (ie tinyVariable) is used for very few identifier types such as Parameter and Protected instance fields 
+- Method names:  Use verbs if possible.  Ie CalculateInvoiceTotal
+- Constants:  Constants all in uppercase with underscores between words, such as NUM_DAYS_IN_WEEK.  Defined at start of file
+- MSDN convention for constants: You might also have to capitalize identifiers to maintain compatibility with existing, unmanaged symbol schemes, where all uppercase characters are often used for enumerations and constant values. In general, these symbols should not be visible outside of the assembly that uses them.
+
+=========================================================		
+Namespace:
+
+- Each .cs file will have one class, and each project will have a namespace.  The three namespaces to use will be the same as the project names (GoDoc, GoSchema, GoWordAddIn)
+- After the namespace, comes the name of the class (matches filename)
+- Example:  DocumentGenerator.cs
+	namespace GoDoc.DocumentGenerator
+	{
+	...
+	}
+
+=========================================================
+COMMENTS:
+
+Comment at start of file
+- Include comment at start of each file, au
+
+Comment Tokens:  
+- Use: TODO, HACK, UNDONE
+	Example:
+		// TODO Fix this method
+		// HACK This method works but requires redesign
+		// UNDONE still needs a return value
+
+XML Comment Markers:
+- Might use?  If do, this is the structure
+// Regular comments look like this
+/// <summary>
+/// This function turns umbrellas into unicorns.  Don't pass it an int
+/// otherwise it will explode
+/// </summary>
+
+		
