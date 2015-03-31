@@ -1,28 +1,44 @@
 ﻿// Created 20150328 by Andrea Dukeshire
-// Class to generate a XML file containing client data.  This xml file
+// Class to generate a Xml file containing client data.  This xml file
 // is then bound to the word doc as a embedded resource for the goFile.
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
-namespace GoWordDoc.XMLDocGenerator
+namespace GoWordDoc
 {
-    public class XMLDocGenerator
+    public class XmlDocGenerator
     {
+        // Properties - get and set for the filename.
+        // stores name of Xml file we will generate (do not include relative path for this var)
+        public string OutputXmlFilename { get; set;}
 
-        // Class Fields go here.  Required?
+        public XmlDocGenerator( string desiredFilename) 
+        {
+            OutputXmlFilename = desiredFilename;
+        }
 
+        // Create most basic GoXml file for starting purposes
+        public void GenerateGoXml(string fileNumber, string clientName)
+        {
+            var xmlDoc = 
+                new XElement("Files",        
+                  new XElement("File",
+                      new XElement("FileNo", fileNumber),
+                      new XElement ("Client", clientName)
+                  ));
 
-        // Constructor
-        public XMLDocGenerator() {}
+            xmlDoc.Save(OutputXmlFilename);
+        }
 
         // HACK Initial code taken from Eric White's 'GenerateData.cs'
         // and is a starting point only to framework to write a xml doc
-
-        public static void GenerateRandomXML()
+        public void GenerateRandomXml()
 	    {
             Random rnd = new Random();
             string[] names = new[] {
@@ -72,10 +88,7 @@ namespace GoWordDoc.XMLDocGenerator
                                     )
                                 )));
 
-            // Original:  Starts relative (..), then Goes down a folder ..(GenerateData), then up a folder (DocumentGenerator), and then into bin\debug folder
-            //data.Save("..\\..\\..\\DocumentGenerator\\bin\\Debug\\Data.xml");
-            // We want:  
-            data.Save("..\\..\\bin\\Debug\\Data.xml");
+            data.Save("DataBlarg.xml");
 
 	    }
     }

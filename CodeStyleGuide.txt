@@ -42,11 +42,12 @@ Comment Tokens:
 		// UNDONE still needs a return value
 
 XML Comment Markers:
-- Might use?  If do, this is the structure
-// Regular comments look like this
+- Below is a XML Comment usage example, as per the OpenXML SDK library.  Note that both summary and returns are in complete sentences with periods.  This example is to show summary & return values for a example function "CreateUnicorns"
+// Regular comments look like this with two slashes
 /// <summary>
 /// This function turns umbrellas into unicorns.  Don't pass it an int
-/// otherwise it will explode
+/// otherwise it will explode.
 /// </summary>
-
+/// <returns>A status int=1 if successful, int=0 if fails.</returns> 
+public int CreateUnicorns(SomeVariableType umbrellas)
 		
