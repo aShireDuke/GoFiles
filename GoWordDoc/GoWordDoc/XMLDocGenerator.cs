@@ -26,11 +26,12 @@ namespace GoWordDoc
         // Create most basic GoXml file for starting purposes
         public void GenerateGoXml(string fileNumber, string clientName)
         {
-            var xmlDoc = 
-                new XElement("Files",        
-                  new XElement("File",
-                      new XElement("FileNo", fileNumber),
-                      new XElement ("Client", clientName)
+            var xmlDoc =
+                new XElement("files",
+                  new XElement("file",
+                      new XElement("clientName", fileNumber),
+                      new XElement("posessionDate", fileNumber),
+                      new XElement ("clientTitle", clientName)
                   ));
 
             xmlDoc.Save(OutputXmlFilename);

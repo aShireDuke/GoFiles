@@ -59,6 +59,9 @@
     This section specifies references for the project.
   -->
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\..\..\GitForked\Open-XML-SDK\build\OpenXmlSdkLib\Debug\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -102,19 +105,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindCustomXmlPart.cs" />
     <Compile Include="XMLDocGenerator.cs" />
     <EmbeddedResource Include="ThisDocument.resx">
       <DependentUpon>ThisDocument.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="GoSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="GoWordDoc.docx" />
     <Compile Include="ThisDocument.cs">
       <DependentUpon>GoWordDoc.docx</DependentUpon>
     </Compile>
     <None Include="GoWordDoc_TemporaryKey.pfx" />
-    <None Include="GoXMLSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="ThisDocument.Designer.xml">
       <DependentUpon>ThisDocument.cs</DependentUpon>
     </None>
@@ -142,9 +144,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GoXml.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="GoData.xml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

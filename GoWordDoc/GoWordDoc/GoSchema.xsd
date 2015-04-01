@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://DLOGoFiles.com/namespaces/GoSchema/" targetNamespace="http://DLOGoFiles.com/namespaces/GoSchema/" xmlns:Q1="http://DLOGoFiles.com/namespaces/GoSchema/">
+<schema xmlns:Q1="http://DLOGoFiles.com/namespaces/GoSchema/"
+        targetNamespace="http://DLOGoFiles.com/namespaces/GoSchema/"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified">
     <element name="files" type="Q1:FilesType"></element>
     <complexType name="FilesType">
     	<sequence>
