@@ -1,12 +1,10 @@
 ﻿// Created 20150401 by Andrea Dukeshire
-// First try, while following instructions at MSDN: Walkthrough: Creating a Custom Tab by Using the Ribbon Designer
-// https://msdn.microsoft.com/en-us/library/bb386104.aspx
+// Definitions for Custom "RibbonGo"
 
 namespace GoWordAddIn
 {
     partial class RibbonGo : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -46,6 +44,7 @@ namespace GoWordAddIn
             this.group2 = this.Factory.CreateRibbonGroup();
             this.button2 = this.Factory.CreateRibbonButton();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.toggleButton2 = this.Factory.CreateRibbonToggleButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -74,10 +73,12 @@ namespace GoWordAddIn
             // 
             this.toggleButton1.Label = "Hide Actions Pane";
             this.toggleButton1.Name = "toggleButton1";
+            this.toggleButton1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.toggleButton1_Click);
             // 
             // group2
             // 
             this.group2.Items.Add(this.button2);
+            this.group2.Items.Add(this.toggleButton2);
             this.group2.Label = "group1";
             this.group2.Name = "group2";
             // 
@@ -90,6 +91,11 @@ namespace GoWordAddIn
             // printDialog1
             // 
             this.printDialog1.UseEXDialog = true;
+            // 
+            // toggleButton2
+            // 
+            this.toggleButton2.Label = "Show Actions Pane";
+            this.toggleButton2.Name = "toggleButton2";
             // 
             // RibbonGo
             // 
@@ -115,6 +121,7 @@ namespace GoWordAddIn
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group2;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button2;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleButton1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleButton2;
     }
 
     partial class ThisRibbonCollection
