@@ -24,17 +24,24 @@ namespace GoWordDoc
         }
 
         // Create most basic GoXml file for starting purposes
-        public void GenerateGoXml(string fileNumber, string clientName)
+        public void GenerateGoXml(string fileNumber, string clientName, string posessionDate, string clientTitle)
         {
+            // Create namespace, nickname "aw".  By assigining XElement nodes
+            // to this namespace below, we generate a file that has aw as the default 
+            // namespace.  This is expressed by the "xmlns = namspaceName" declaration
+            // at the top of the file.
+            XNamespace aw = "http://DLOGoFiles.com/namespaces/GoSchema/";
             var xmlDoc =
-                new XElement("files",
-                  new XElement("file",
-                      new XElement("clientName", fileNumber),
-                      new XElement("posessionDate", fileNumber),
-                      new XElement ("clientTitle", clientName)
+                new XElement(aw + "files",
+                      new XElement(aw + "file",
+                          new XElement(aw + "fileNumber", fileNumber),
+                          new XElement(aw + "clientName", clientName),
+                          new XElement(aw + "posessionDate", posessionDate),
+                          new XElement(aw + "clientTitle", clientTitle)
                   ));
 
-            xmlDoc.Save(OutputXmlFilename);
+            // Save in main folder
+            xmlDoc.Save(string.Concat("..\\..\\", OutputXmlFilename));
         }
 
         // HACK Initial code taken from Eric White's 'GenerateData.cs'

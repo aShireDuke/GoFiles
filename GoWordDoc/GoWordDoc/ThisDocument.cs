@@ -32,9 +32,10 @@ namespace GoWordDoc
 
         private void ThisDocument_Startup(object sender, System.EventArgs e)
         {
-            //// HACK create debug XML file in bin directory
-            //XmlDocGenerator goXmlFile = new XmlDocGenerator("GoXml.xml");
-            //goXmlFile.GenerateGoXml("J-54224", "Smith");
+            //// HACK create debug XML file in main directory.  If want to use it
+            //// manually copy over to be the GoData.xml that is embedded in this project
+            //XmlDocGenerator goXmlFile = new XmlDocGenerator("GeneratedData.xml");
+            //goXmlFile.GenerateGoXml("J-54224", "Smith", "1999-04-01", "Manager");
 
             // Read embedded xml fil, and bind to content controls in the document
             string xmlData = GetXmlFromEmbeddedResource();

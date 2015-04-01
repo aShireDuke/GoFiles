@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns:Q1="http://DLOGoFiles.com/namespaces/GoSchema/"
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://DLOGoFiles.com/namespaces/GoSchema/"
-        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:Q1="http://DLOGoFiles.com/namespaces/GoSchema/"
         elementFormDefault="qualified">
     <element name="files" type="Q1:FilesType"></element>
     <complexType name="FilesType">
@@ -12,9 +12,10 @@
     <complexType name="FileType">
     	<sequence>
     		<element name="clientName" type="string" maxOccurs="1" minOccurs="1"></element>
-    		<element name="posessionDate" type="date" maxOccurs="1" minOccurs="1"></element>
+        <element name="fileNumber" type="string" maxOccurs="1" minOccurs="1"></element>
+        <element name="posessionDate" type="date" maxOccurs="1" minOccurs="1"></element>
     		<element name="clientTitle" type="Q1:TitleType" maxOccurs="1" minOccurs="1"></element>
-    	</sequence>
+      </sequence>
     </complexType>
     <simpleType name="TitleType">
     	<restriction base="string">
