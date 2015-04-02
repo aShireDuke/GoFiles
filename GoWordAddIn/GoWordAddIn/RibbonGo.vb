@@ -1,6 +1,13 @@
-﻿Imports Microsoft.Office.Tools.Ribbon
+﻿' Created 20150401 By Andrea Dukeshire
+' Custom ribbon for GoFile interaction including custom save dialogs
+' and common office requirements (print current page, etc)
+Imports Microsoft.Office.Tools.Ribbon
 
 Public Class RibbonGo
+
+    ' Location of zPrecedents
+    Const WINDOWS_7_PRECEDENT_LOCATION = "c:\Users\Public\Documents\"
+    Const PRECEDENT_FOLDER = "zPrecedents"
 
     Private Sub RibbonGo_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
 
@@ -10,13 +17,27 @@ Public Class RibbonGo
         System.Windows.Forms.MessageBox.Show("Hello you!")
 
         Dim valReturn As Integer
+        Dim suggestName As String
+        Dim dlgSaveAs As Microsoft.Office.Core.FileDialog
 
-        'make the file dialog visible to the user 
-        With Globals.ThisAddIn.Application.FileDialog(Microsoft.Office.Core.MsoFileDialogType.msoFileDialogSaveAs)
-            .InitialFileName = "blaaarg"
+        ' Hard code suggested name for now...
+        suggestName = "Smith-FGo"
+
+        ' Make the file dialog visible to the user 
+        dlgSaveAs = Globals.ThisAddIn.Application.FileDialog(Microsoft.Office.Core.MsoFileDialogType.msoFileDialogSaveAs)
+
+        With dlgSaveAs
+            .InitialFileName = suggestName
+            .Title = "SaveAs Dialog for SaveAsGoForm"
+            .ButtonName = "Save"
             valReturn = .Show()
         End With
-        System.Windows.Forms.MessageBox.Show(valReturn)
+
+        ' If press save then Action = 1, if press cancel then action = 0
+        ' Might want to do something if they don't continue...
+        If (valReturn = -1) Then
+            dlgSaveAs.Execute()
+        End If
 
     End Sub
 End Class
