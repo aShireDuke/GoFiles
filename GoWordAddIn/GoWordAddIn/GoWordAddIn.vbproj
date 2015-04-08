@@ -182,6 +182,7 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
+    <Compile Include="DocumentGeneration.vb" />
     <Compile Include="RibbonGo.Designer.vb">
       <DependentUpon>RibbonGo.vb</DependentUpon>
     </Compile>

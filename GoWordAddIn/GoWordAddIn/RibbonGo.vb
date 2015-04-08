@@ -40,4 +40,40 @@ Public Class RibbonGo
         End If
 
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
+        GetXmlFromResource()
+    End Sub
+
+    ' VB implementation of same function in c# in GoWordDoc project
+    ' From "Walkthrough: Binding content controls to custom XML parts"
+    Private Function GetXmlFromResource() As String
+
+        ' Get filename
+        Dim currentFilename As String
+        Dim xmlFileName As String
+        currentFilename = Globals.ThisAddIn.Application.ActiveDocument.Name
+        xmlFileName = currentFilename + ".GoData.xml"
+
+
+        Dim asm As System.Reflection.Assembly = _
+            System.Reflection.Assembly.GetExecutingAssembly()
+        Dim stream1 As System.IO.Stream = asm.GetManifestResourceStream( _
+                xmlFileName)
+        Dim resourceNames As String() = asm.GetManifestResourceNames()
+
+        '"EmployeeControls.employees.xml")
+
+
+        Using resourceReader As System.IO.StreamReader = _
+            New System.IO.StreamReader(stream1)
+            If resourceReader IsNot Nothing Then
+                Return resourceReader.ReadToEnd()
+            End If
+        End Using
+
+        Return Nothing
+
+    End Function
+
 End Class

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿// For advice on how to deploy the custom solution, see MSDN article:
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
