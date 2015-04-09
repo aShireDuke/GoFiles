@@ -125,6 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoCustomXmlPart.cs" />
     <Compile Include="XMLDocGenerator.cs" />
     <EmbeddedResource Include="ThisDocument.resx">
       <DependentUpon>ThisDocument.cs</DependentUpon>

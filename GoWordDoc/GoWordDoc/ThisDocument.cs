@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
-using Microsoft.Office.Tools.Word;
-using Microsoft.VisualStudio.Tools.Applications.Runtime;
-using Office = Microsoft.Office.Core;
-using Word = Microsoft.Office.Interop.Word;
-using System.Reflection;
 
 namespace GoWordDoc
 {
@@ -24,14 +18,6 @@ namespace GoWordDoc
     public partial class ThisDocument
     {
 
-        // Instructs the Visual Studio Tools for Office runtime to add the specified data object 
-        // to the data cache in the document. See method "AddCustomXmlPart" for more details
-        [CachedAttribute()]
-
-        public string customXMLPartID = string.Empty;
-        private Office.CustomXMLPart customXMLPart;
-        private string schemaNamespaceString = "http://DLOGoFiles.com/namespaces/GoSchema/";
-
         private void ThisDocument_Startup(object sender, System.EventArgs e)
         {
             //// HACK create debug XML file in main directory.  If want to use it
@@ -39,113 +25,30 @@ namespace GoWordDoc
             //XmlDocGenerator goXmlFile = new XmlDocGenerator("GeneratedData.xml");
             //goXmlFile.GenerateGoXml("J-54224", "Smith", "1999-04-01", "Manager");
 
-            // Read embedded xml fil, and bind to content controls in the document
-            CheckSchema();
-            string xmlData = GetXmlFromEmbeddedResource("GoWordDoc.GoData.xml");
-            string xmlSchemaData = GetXmlFromEmbeddedResource("GoWordDoc.GoSchema.xsd");
+            // Read embedded xml file, and bind to content controls in the document
+            GoCustomXmlPart XmlResource = new GoCustomXmlPart("GoWordDoc.GoData.xml");
+            string xmlData = XmlResource.GetXmlFromEmbeddedResource();
 
             if (xmlData != null)
             {
-                AddCustomXmlPart(xmlData);
-                BindControlsToCustomXmlPart();
+                XmlResource.AddCustomXmlPart(xmlData);
+                XmlResource.BindControlsToCustomXmlPart();
             }
 
+            // Read/validate schema, embedd to document
+            GoCustomXmlPart SchemaResource = new GoCustomXmlPart("GoWordDoc.GoSchema.xsd");
+            xmlData = SchemaResource.GetXmlFromEmbeddedResource();
+
+            //if (xmlData != null)
+            //{
+            //    SchemaResource.AddCustomSchemaPart(xmlData);
+            //    SchemaResource.BindControlsToCustomXmlPart();
+            //}
+            SchemaResource.CheckSchema();    
         }
 
         private void ThisDocument_Shutdown(object sender, System.EventArgs e)
         {
-        }
-
-        ///<summary>
-        /// Reads an embedded XML resource file (resourceName) from the project into a stream.
-        ///</summary>
-        ///<returns>
-        /// Returns the contents as an XML string.
-        /// </returns> 
-        private string GetXmlFromEmbeddedResource(string resourceName)
-        {
-            // Note that this xml file must be added to the project, 
-            // then click properties ->  "Build Action" -> "Embedded Resource"
-            System.Reflection.Assembly asm =
-                System.Reflection.Assembly.GetExecutingAssembly();
-            string [] allResourceNames = asm.GetManifestResourceNames();
-            System.IO.Stream stream1 = asm.GetManifestResourceStream(
-                resourceName);
-
-            using (System.IO.StreamReader resourceReader =
-                    new System.IO.StreamReader(stream1))
-            {
-                if (resourceReader != null)
-                {
-                    return resourceReader.ReadToEnd();
-                }
-            }
-
-            return null;
-        }
-
-        ///<summary>
-        ///Creates a new custom XML part that contains an XML 
-        ///string that is passed to the method. To ensure that the custom XML part is only 
-        ///created once, the method creates the custom XML part only if a custom XML part 
-        ///with a matching GUID does not already exist in the document
-        ///</summary>
-        private void AddCustomXmlPart(string xmlData)
-        {
-            // The first time this method is called, it saves the value of the Id property to the customXMLPartID
-            //string. The value of the customXMLPartID string is persisted in the document because 
-            //it was declared by using the CachedAttribute attribute.
-            if (xmlData != null)
-            {
-                customXMLPart = this.CustomXMLParts.SelectByID(customXMLPartID);
-                if (customXMLPart == null)
-                {
-                    // Add custom XML
-                    customXMLPart = this.CustomXMLParts.Add(xmlData);
-
-                    // Add schema by namespace, loads as is a known part of this project
-                    customXMLPart.NamespaceManager.AddNamespace("ns",
-                        @schemaNamespaceString);
-
-                    //// Add schema as embedded object (also requires setting .xsd file to 
-                    //Assembly myAssembly = Assembly.GetExecutingAssembly();
-                    //using (Stream schemaStream = myAssembly.GetManifestResourceStream(resourceName))
-                    //{
-                    //    using (XmlReader schemaReader = XmlReader.Create(schemaStream))
-                    //    {
-                    //        settings.Schemas.Add(null, schemaReader);
-                    //    }
-                    //}
-
-                    // Write ID of the custom XML part so we only do it once
-                    customXMLPartID = customXMLPart.Id;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Binds control to an element in the custom XML part and sets the date display
-        /// format of the DatePickerContentControl.
-        /// </summary>
-        private void BindControlsToCustomXmlPart()
-        {
-             // Used by BindControlsToCustomXmlPart
-            string prefix = "xmlns:ns=\'" + schemaNamespaceString + "\'";
-
-            // Bind each content control in the document to a Xpath query.  
-            // Use "this" to refer to the active word doc
-            string xPathName = "ns:files/ns:file/ns:clientName";
-            this.plainTextContentControl1.XMLMapping.SetMapping(xPathName,
-                prefix, customXMLPart);
-
-            string xPathDate = "ns:files/ns:file/ns:posessionDate";
-            this.datePickerContentControl1.DateDisplayFormat = "MMMM d, yyyy";
-            this.datePickerContentControl1.XMLMapping.SetMapping(xPathDate,
-                prefix, customXMLPart);
-
-            string xPathTitle = "ns:files/ns:file/ns:clientTitle";
-            this.dropDownListContentControl1.XMLMapping.SetMapping(xPathTitle,
-                prefix, customXMLPart);
         }
 
         #region VSTO Designer generated code
@@ -161,49 +64,6 @@ namespace GoWordDoc
         }
 
         #endregion
-        /// <summary>
-        /// Ensure that the schema is in the library and registered with the document. 
-        /// </summary>
-        private bool CheckSchema()
-        {
-            // as per MSDN article "XML Schemas and Data in Document-Level Customizations"
-            // https://msdn.microsoft.com/en-us/library/y36t3e16.aspx?cs-save-lang=1&cs-lang=csharp#code-snippet-1
 
-            string namespaceUri = schemaNamespaceString;
-            bool namespaceFound = false;
-            bool namespaceRegistered = false;
-
-            // Search for schema in application library -- true for us
-            foreach (Word.XMLNamespace n in Application.XMLNamespaces)
-            {
-                if (n.URI == namespaceUri)
-                {
-                    namespaceFound = true;
-                }
-            }
-
-            if (!namespaceFound)
-            {
-                MessageBox.Show("XML Schema is not in library.");
-                return false;
-            }
-
-            // Search for schema in this document
-            foreach (Word.XMLSchemaReference r in this.XMLSchemaReferences)
-            {
-                if (r.NamespaceURI == namespaceUri)
-                {
-                    namespaceRegistered = true;
-                }
-            }
-
-            if (!namespaceRegistered)
-            {
-                MessageBox.Show("XML Schema is not registered for this document: " + namespaceUri);
-                return false;
-            }
-
-            return true;
-        }
     }
 }
