@@ -21,7 +21,7 @@
     <PublishUrl>publish\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.3</ApplicationVersion>
+    <ApplicationVersion>1.0.0.5</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -129,9 +129,10 @@
     <EmbeddedResource Include="ThisDocument.resx">
       <DependentUpon>ThisDocument.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="GoSchema.xsd">
+    <EmbeddedResource Include="GoSchema.xsd">
       <SubType>Designer</SubType>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="GoWordDoc.docx" />
     <Compile Include="ThisDocument.cs">
       <DependentUpon>GoWordDoc.docx</DependentUpon>
@@ -164,7 +165,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GoData.xml" />
+    <EmbeddedResource Include="GoData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -186,7 +190,7 @@
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
         <ProjectProperties HostName="GoWordDoc.docx" HostPackage="{18A3A5AC-5778-4778-901C-ADAAC08E910A}" OfficeVersion="15.0" VstxVersion="4.0" ApplicationType="DOC" Language="CS" TemplatesPath="VSTOTemplates" DebugInfoExeName="C:\Program Files\Microsoft Office 15\root\Office15\WINWORD.EXE" DebugInfoCommandLine="/w &quot;[$OUTPUT]GoWordDoc.docx&quot;" />
         <Host Name="Word Document" Path=".\GoWordDoc.docx" GeneratedCodeNamespace="GoWordDoc" PublishedHash="CFECFF3FB805E9A295392C4C85A42160CA201773">
-          <HostItem Name="ThisDocument" Code="ThisDocument.cs" CanonicalName="ThisDocument" Blueprint="ThisDocument.Designer.xml" GeneratedCode="ThisDocument.Designer.cs" PublishedHash="1321228E81B4541BD18A2F5B42855940D4E089AA" />
+          <HostItem Name="ThisDocument" Code="ThisDocument.cs" CanonicalName="ThisDocument" PublishedHash="1321228E81B4541BD18A2F5B42855940D4E089AA" Blueprint="ThisDocument.Designer.xml" GeneratedCode="ThisDocument.Designer.cs" />
         </Host>
       </FlavorProperties>
     </VisualStudio>
