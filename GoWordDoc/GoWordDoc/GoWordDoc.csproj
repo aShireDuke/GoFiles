@@ -21,16 +21,16 @@
     <PublishUrl>publish\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.6</ApplicationVersion>
-    <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
+    <ApplicationVersion>1.0.0.7</ApplicationVersion>
+    <AutoIncrementApplicationRevision>false</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
     <ProductName>GoWordDoc</ProductName>
-    <PublisherName />
+    <PublisherName>DLOEnterprises</PublisherName>
     <SupportUrl />
     <FriendlyName>GoWordDoc</FriendlyName>
-    <OfficeApplicationDescription />
+    <OfficeApplicationDescription>Go file for input to the goFile document generation system</OfficeApplicationDescription>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -65,7 +65,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -84,6 +84,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -133,10 +134,10 @@
     <EmbeddedResource Include="ThisDocument.resx">
       <DependentUpon>ThisDocument.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GoSchema.xsd">
+    <Content Include="GoSchema.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <None Include="GoWordDoc.docx" />
     <Compile Include="ThisDocument.cs">
       <DependentUpon>GoWordDoc.docx</DependentUpon>
