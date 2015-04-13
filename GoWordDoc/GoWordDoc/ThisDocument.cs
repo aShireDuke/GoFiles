@@ -6,6 +6,8 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
+
+
 namespace GoWordDoc
 {
     /// <summary>
@@ -26,33 +28,27 @@ namespace GoWordDoc
             //goXmlFile.GenerateGoXml("J-54224", "Smith", "1999-04-01", "Manager");
 
             // Read embedded xml file, and bind to content controls in the document
-            GoCustomXmlPart XmlResource = new GoCustomXmlPart("GoWordDoc.GoData.xml");
-            string xmlData = XmlResource.GetXmlFromEmbeddedResource();
+            GoCustomXmlPart GoXmlResource = new GoCustomXmlPart("GoWordDoc.GoData.xml");
+            string xmlData = GoXmlResource.GetXmlFromEmbeddedResource();
 
             if (xmlData != null)
             {
-                XmlResource.AddCustomXmlPart(xmlData);
-                XmlResource.BindControlsToCustomXmlPart();
+                GoXmlResource.AddCustomXmlPart(xmlData);
+                GoXmlResource.BindControlsToCustomXmlPart();
             }
 
-            // Read/validate schema, embedd to document
-            GoCustomXmlPart SchemaResource = new GoCustomXmlPart("GoWordDoc.GoSchema.xsd");
-            xmlData = SchemaResource.GetXmlFromEmbeddedResource();
+            GoXmlResource.CheckSchema();
+            //XmlSchemaSet schemas = GoSchemaAccess.GetSchemaSet();
 
-            //if (xmlData != null)
-            //{
-            //    SchemaResource.AddCustomSchemaPart(xmlData);
-            //    SchemaResource.BindControlsToCustomXmlPart();
-            //}
-            SchemaResource.CheckSchema();    
         }
 
         private void ThisDocument_Shutdown(object sender, System.EventArgs e)
         {
         }
 
-        #region VSTO Designer generated code
 
+
+        #region VSTO Designer generated code
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.

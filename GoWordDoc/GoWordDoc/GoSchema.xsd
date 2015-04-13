@@ -2,7 +2,8 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://DLOGoFiles.com/namespaces/GoSchema/"
         xmlns:Q1="http://DLOGoFiles.com/namespaces/GoSchema/"
-        elementFormDefault="qualified">
+        elementFormDefault="qualified"
+        Q1:schemaLocation="C:/GoFiles/GoWordDoc/GoWordDoc/GoSchema.xsd">
     <element name="files" type="Q1:FilesType"></element>
     <complexType name="FilesType">
     	<sequence>
