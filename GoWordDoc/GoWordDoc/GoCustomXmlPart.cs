@@ -17,6 +17,7 @@ using System.Reflection;
 using System.IO;
 using System.Xml.Schema;
 
+
 namespace GoWordDoc
 {
     class GoCustomXmlPart
@@ -80,6 +81,7 @@ namespace GoWordDoc
             //it was declared by using the CachedAttribute attribute.
             if (xmlData != null)
             {
+                // Read last custom XML part by the persisted partID
                 CustomPart = Globals.ThisDocument.CustomXMLParts.SelectByID(partID);
                 if (CustomPart == null)
                 {
@@ -91,36 +93,11 @@ namespace GoWordDoc
                     CustomPart.NamespaceManager.AddNamespace("ns",
                         @SCHEMANAMESPACE);
 
-                    //XmlSchemaSet schemas = GetSchemaSet();
-
-
-
-                    //CustomPart.SchemaCollection.Add(schemas);
-
-                    // replace this fully qualified name with the schema file
-                    //string schemaPath = typeof(GoCustomXmlPart).FullName.Replace("GoSchemaAccess", SCHEMA);
-                    //XmlSchemaSet schemas = new XmlSchemaSet();
-                    //schemas.Add(SCHEMANAMESPACE, XmlReader.Create(typeof(GoSchemaAccess).Assembly.GetManifestResourceStream(schemaPath)));
-
-
-
-                    //return xsc;
-
-                    //CustomPart.SchemaCollection.Add(SCHEMANAMESPACE);
-
                     // Write ID of the custom XML part so we only do it once
                     partID = CustomPart.Id;
+
                 }
             }
-        }
-
-        public static XmlSchemaSet GetSchemaSet()
-        {
-            // replace this fully qualified name with the schema file
-            string schemaPath = typeof(GoSchemaAccess).FullName.Replace("GoSchemaAccess", SCHEMA);
-            XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add(SCHEMANAMESPACE, XmlReader.Create(typeof(GoSchemaAccess).Assembly.GetManifestResourceStream(schemaPath)));
-            return schemas;
         }
 
         /// <summary>

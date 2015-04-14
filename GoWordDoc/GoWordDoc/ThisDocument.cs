@@ -45,6 +45,7 @@ namespace GoWordDoc
 
         private void ThisDocument_Shutdown(object sender, System.EventArgs e)
         {
+
         }
 
 
